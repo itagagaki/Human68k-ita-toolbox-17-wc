@@ -9,8 +9,8 @@ RM      = -rm -f
 INCLUDE = $(HOME)/fish/include
 
 DESTDIR   = A:/usr/ita
-BACKUPDIR = B:/wc/1.1
-RELEASE_ARCHIVE = WC11
+BACKUPDIR = B:/wc/1.1A
+RELEASE_ARCHIVE = WC11A
 RELEASE_FILES = MANIFEST README ../NOTICE CHANGES wc.1 wc.x
 
 EXTLIB = $(HOME)/fish/lib/ita.l
