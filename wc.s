@@ -2,6 +2,8 @@
 *
 * Itagaki Fumihiko 26-Jan-93  Create.
 * 1.0
+* Itagaki Fumihiko 04-Jan-94  BSSがきちんと確保されていなかったのを修正
+* 1.1
 *
 * Usage: wc [ -lwcCZ ] [ -- ] [ <ファイル> | - ] ...
 
@@ -475,7 +477,7 @@ werror_1:
 .data
 
 	dc.b	0
-	dc.b	'## wc 1.0 ##  Copyright(C)1993 by Itagaki Fumihiko',0
+	dc.b	'## wc 1.1 ##  Copyright(C)1993-94 by Itagaki Fumihiko',0
 
 msg_myname:		dc.b	'wc: ',0
 msg_no_memory:		dc.b	'メモリが足りません',CR,LF,0
@@ -487,9 +489,6 @@ word_total:		dc.b	'合計',0
 str_stdin:		dc.b	'-'
 str_nul:		dc.b	0
 *****************************************************************
-.bss
-.even
-bsstop:
 .offset 0
 inpbuf_top:		ds.l	1
 inpbuf_size:		ds.l	1
@@ -506,10 +505,15 @@ terminate_by_ctrld:	ds.b	1
 lastchar_is_space:	ds.b	1
 lastchar_is_cr:		ds.b	1
 print_total:		ds.b	1
-
-		ds.b	STACKSIZE
+.even
+			ds.b	STACKSIZE
 .even
 stack_bottom:
+
+.bss
+.even
+bsstop:
+		ds.b	stack_bottom
 *****************************************************************
 
 .end start
